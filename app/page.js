@@ -10,7 +10,7 @@ export default function Home() {
       // create a socket connection
       const theSocket = io('https://ws.ezyride.co', {
         extraHeaders: {
-          "authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMzAwOTE2NC1jNWE1LTQzNTQtOWZmOC02Y2FjODZlODk3ZDUiLCJpYXQiOjE3MTU4NjkzNDcsImV4cCI6MTcxNTk1NTc0NywiYXVkIjoiaHR0cHM6Ly9hcGkuZXp5cmlkZS5jbyIsImlzcyI6Imh0dHBzOi8vYXBpLmV6eXJpZGUuY28ifQ.woWE77nJlh8x2bw1zWTz3u_VTLR2R_afsTPb18leWzo'
+          "authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMzAwOTE2NC1jNWE1LTQzNTQtOWZmOC02Y2FjODZlODk3ZDUiLCJlbWFpbCI6InRlY2hAZXp5cmlkZS5jbyIsInR5cGUiOiJwYXNzZW5nZXIiLCJpYXQiOjE3MTU4OTk1ODksImV4cCI6MTc0NzQzNTU4OSwiYXVkIjoiaHR0cHM6Ly9hcGkuZXp5cmlkZS5jbyIsImlzcyI6Imh0dHBzOi8vYXBpLmV6eXJpZGUuY28ifQ.PfN4POQrSaZVFU7vDcHxfxx6KNycJ7UzgVaZ06_iiMY'
         },
       });
 
