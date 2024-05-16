@@ -4,32 +4,34 @@ import { io } from "socket.io-client";
 export default function Home() {
   const [messages, setMessages] = useState([]);
   const [currentMessage, setCurrentMessage] = useState('');
+  const [socket, setSocket] = useState(null);
   useEffect(() => {
-    // create a socket connection
-    const socket = io('https://api.ezyride.co:3003', {
-      extraHeaders: {
-        "authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMzAwOTE2NC1jNWE1LTQzNTQtOWZmOC02Y2FjODZlODk3ZDUiLCJpYXQiOjE3MTU4NjkzNDcsImV4cCI6MTcxNTk1NTc0NywiYXVkIjoiaHR0cHM6Ly9hcGkuZXp5cmlkZS5jbyIsImlzcyI6Imh0dHBzOi8vYXBpLmV6eXJpZGUuY28ifQ.woWE77nJlh8x2bw1zWTz3u_VTLR2R_afsTPb18leWzo'
-      },
-    
-    });
+    if (!socket || !(typeof socket.emit === 'function')) {
+      // create a socket connection
+      const theSocket = io('https://ws.ezyride.co', {
+        extraHeaders: {
+          "authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMzAwOTE2NC1jNWE1LTQzNTQtOWZmOC02Y2FjODZlODk3ZDUiLCJpYXQiOjE3MTU4NjkzNDcsImV4cCI6MTcxNTk1NTc0NywiYXVkIjoiaHR0cHM6Ly9hcGkuZXp5cmlkZS5jbyIsImlzcyI6Imh0dHBzOi8vYXBpLmV6eXJpZGUuY28ifQ.woWE77nJlh8x2bw1zWTz3u_VTLR2R_afsTPb18leWzo'
+        },
+      });
 
-    // listen to incoming message
-    socket.on('join-car', (message) => {
-      setMessages((prevMessages) => [...prevMessages, message])
-    });
-
+      // listen to incoming message
+      theSocket.on('join-car', (message) => {
+        setMessages((prevMessages) => [...prevMessages, message])
+      });
+      setSocket(theSocket);
+    }
     // clean up the socket connection and unmount
     return () => {
-      socket.disconnect()
+      if (!socket || !(typeof socket.emit === 'function')) {
+        socket.disconnect()
+      }
     }
 
-  }, [])
+  }, [socket])
 
   const sendMessage = (e) => {
     e.preventDefault()
     if (currentMessage.length) { // create a socket connection
-      const socket = io('http://api.ezyride.co:3003');
-
       // send the message to the server
       socket.emit('join-car', currentMessage);
       // clear message
