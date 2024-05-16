@@ -22,7 +22,7 @@ export default function Home() {
     }
     // clean up the socket connection and unmount
     return () => {
-      if (socket || (typeof socket.disconnect === 'function')) {
+      if (socket && (typeof socket.disconnect === 'function')) {
         socket.disconnect()
       }
     }
