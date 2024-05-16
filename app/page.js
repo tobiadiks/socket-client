@@ -6,7 +6,7 @@ export default function Home() {
   const [currentMessage, setCurrentMessage] = useState('');
   useEffect(() => {
     // create a socket connection
-    const socket = io('https://api.ezyride.co:3002', {
+    const socket = io('https://api.ezyride.co:3003', {
       extraHeaders: {
         "authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMzAwOTE2NC1jNWE1LTQzNTQtOWZmOC02Y2FjODZlODk3ZDUiLCJpYXQiOjE3MTU4NjkzNDcsImV4cCI6MTcxNTk1NTc0NywiYXVkIjoiaHR0cHM6Ly9hcGkuZXp5cmlkZS5jbyIsImlzcyI6Imh0dHBzOi8vYXBpLmV6eXJpZGUuY28ifQ.woWE77nJlh8x2bw1zWTz3u_VTLR2R_afsTPb18leWzo'
       },
@@ -28,7 +28,7 @@ export default function Home() {
   const sendMessage = (e) => {
     e.preventDefault()
     if (currentMessage.length) { // create a socket connection
-      const socket = io('https://api.ezyride.co:3002');
+      const socket = io('http://api.ezyride.co:3002');
 
       // send the message to the server
       socket.emit('join-car', currentMessage);
