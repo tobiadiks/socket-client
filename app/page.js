@@ -28,7 +28,7 @@ export default function Home() {
   const sendMessage = (e) => {
     e.preventDefault()
     if (currentMessage.length) { // create a socket connection
-      const socket = io('http://api.ezyride.co:3002');
+      const socket = io('http://api.ezyride.co:3003');
 
       // send the message to the server
       socket.emit('join-car', currentMessage);
