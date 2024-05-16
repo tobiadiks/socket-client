@@ -6,10 +6,15 @@ export default function Home() {
   const [currentMessage, setCurrentMessage] = useState('');
   useEffect(() => {
     // create a socket connection
-    const socket = io('http://localhost:3002');
+    const socket = io('http://api.ezyride.co:3002', {
+      extraHeaders: {
+        "authorization": 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjMzAwOTE2NC1jNWE1LTQzNTQtOWZmOC02Y2FjODZlODk3ZDUiLCJpYXQiOjE3MTU4NjkzNDcsImV4cCI6MTcxNTk1NTc0NywiYXVkIjoiaHR0cHM6Ly9hcGkuZXp5cmlkZS5jbyIsImlzcyI6Imh0dHBzOi8vYXBpLmV6eXJpZGUuY28ifQ.woWE77nJlh8x2bw1zWTz3u_VTLR2R_afsTPb18leWzo'
+      },
+    
+    });
 
     // listen to incoming message
-    socket.on('message', (message) => {
+    socket.on('join-car', (message) => {
       setMessages((prevMessages) => [...prevMessages, message])
     });
 
@@ -23,10 +28,10 @@ export default function Home() {
   const sendMessage = (e) => {
     e.preventDefault()
     if (currentMessage.length) { // create a socket connection
-      const socket = io('http://localhost:3002');
+      const socket = io('https://api.ezyride.co:3002');
 
       // send the message to the server
-      socket.emit('message', currentMessage);
+      socket.emit('join-car', currentMessage);
       // clear message
       setCurrentMessage('')
     }
@@ -41,7 +46,7 @@ export default function Home() {
           ))
         }</div>
       <form onSubmit={sendMessage} className="fixed bottom-0 flex space-x-4 left-0 px-4 py-4 w-full bg-white border-t-gray-200 border-t">
-        <input  className=" w-4/5  px-4 py-2 border-black outline-none border rounded shadow-sm" type="text" value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} />
+        <input className=" w-4/5  px-4 py-2 border-black outline-none border rounded shadow-sm" type="text" value={currentMessage} onChange={(e) => setCurrentMessage(e.target.value)} />
         <button disabled={!currentMessage.length} className="w-1/5 bg-black disabled:bg-gray-600 disabled:cursor-not-allowed px-4 py-2 text-white shadow-sm rounded" onClick={sendMessage}>Send</button>
       </form>
     </main>
